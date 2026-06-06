@@ -204,7 +204,7 @@ function App() {
   }, [currentGPS, contacts, addLog]);
 
   // ── WhatsApp Alert ────────────────────────────────────────────
-  const sendWhatsApp = () => {
+  const sendWhatsApp = useCallback(() => {
     if (contacts.length === 0) {
       showToast("Add at least one emergency contact first!", "danger");
       return;
@@ -230,7 +230,7 @@ function App() {
     saveAlertToFirebase();
     addLog(`🚨 WhatsApp alert sent to ${contacts.length} contact(s)`, "danger");
     showToast(`Alert sent to ${contacts.length} contact(s) ✓`, "safe");
-  };
+  }, [contacts, currentGPS, showToast, saveAlertToFirebase, addLog]);
 
   const markSafe = () => {
     set(ref(db, PATHS.device), {
@@ -271,6 +271,8 @@ function App() {
         setAlertSent(true);
         addLog("🚨 Emergency triggered by physical device!", "danger");
         startGPS();
+        // Auto-send WhatsApp alerts
+        sendWhatsApp();
         // Auto-save alert after delay for GPS sync
         setTimeout(() => {
           saveAlertToFirebase();
@@ -281,7 +283,7 @@ function App() {
     });
 
     return () => unsubscribe();
-  }, [alertSent, startGPS, saveAlertToFirebase, addLog]);
+  }, [alertSent, startGPS, saveAlertToFirebase, addLog, sendWhatsApp]);
 
   // ── Init ──────────────────────────────────────────────────────
   useEffect(() => {
