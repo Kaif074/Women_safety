@@ -296,7 +296,7 @@ function App() {
         navigator.geolocation.clearWatch(gpsWatchIdRef.current);
       }
     };
-  }, []); // Run once on mount
+  }, [startGPS, addLog, contacts.length]); // Run once on mount and sync dependencies
 
   // ── Render ────────────────────────────────────────────────────
   return (
