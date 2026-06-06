@@ -5,14 +5,14 @@ import './App.css';
 
 // ── Firebase Config ─────────────────────────────────────────
 const firebaseConfig = {
-  apiKey:            "AIzaSyBq_5hpdlyvo8IUhSRIyZhCgtVnmAdV7zU",
-  authDomain:        "touch-sensor-84fa0.firebaseapp.com",
-  databaseURL:       "https://touch-sensor-84fa0-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId:         "touch-sensor-84fa0",
-  storageBucket:     "touch-sensor-84fa0.firebasestorage.app",
-  messagingSenderId: "1075797850210",
-  appId:             "1:1075797850210:web:0331d5458f1729a0b3f93b",
-  measurementId:     "G-F5B4FDK67W",
+  apiKey:            process.env.REACT_APP_FIREBASE_API_KEY || "AIzaSyBq_5hpdlyvo8IUhSRIyZhCgtVnmAdV7zU",
+  authDomain:        process.env.REACT_APP_FIREBASE_AUTH_DOMAIN || "touch-sensor-84fa0.firebaseapp.com",
+  databaseURL:       process.env.REACT_APP_FIREBASE_DATABASE_URL || "https://touch-sensor-84fa0-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:         process.env.REACT_APP_FIREBASE_PROJECT_ID || "touch-sensor-84fa0",
+  storageBucket:     process.env.REACT_APP_FIREBASE_STORAGE_BUCKET || "touch-sensor-84fa0.firebasestorage.app",
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID || "1075797850210",
+  appId:             process.env.REACT_APP_FIREBASE_APP_ID || "1:1075797850210:web:0331d5458f1729a0b3f93b",
+  measurementId:     process.env.REACT_APP_FIREBASE_MEASUREMENT_ID || "G-F5B4FDK67W",
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
