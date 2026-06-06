@@ -222,14 +222,14 @@ function App() {
       `_Sent via FemmeGuard Safety Dashboard_`
     );
 
-    contacts.forEach((c) => {
-      const num = c.number.replace(/\D/g, "");
-      window.open(`https://wa.me/${num}?text=${message}`, "_blank");
-    });
+    // Only open WhatsApp for the FIRST contact to prevent browser blocking multiple pop-ups
+    const primaryContact = contacts[0];
+    const num = primaryContact.number.replace(/\D/g, "");
+    window.open(`https://wa.me/${num}?text=${message}`, "_blank");
 
     saveAlertToFirebase();
-    addLog(`🚨 WhatsApp alert sent to ${contacts.length} contact(s)`, "danger");
-    showToast(`Alert sent to ${contacts.length} contact(s) ✓`, "safe");
+    addLog(`🚨 WhatsApp alert sent to primary contact: ${primaryContact.name}`, "danger");
+    showToast(`Alert sent to ${primaryContact.name} ✓`, "safe");
   }, [contacts, currentGPS, showToast, saveAlertToFirebase, addLog]);
 
   const markSafe = () => {
